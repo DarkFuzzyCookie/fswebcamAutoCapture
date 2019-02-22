@@ -27,6 +27,7 @@ if no unique identifier exists then the image will be overriden every capture
 examples:\n image_&dt , coolimagename , image_number_&i, taken_at_&t, &dt
  
 *********READ_ME*********
+To create the 'autostart_fswebcam.sh' and 'fswebcam_auto_capture.ini' files, run the shell script.
 To make the script executable and run on startup do the following:
 Edit 'autostart_fswebcam.sh' and change the directory to the download directory of the script
 Move 'autostart_fswebcam.sh' script into /etc/init.d/
