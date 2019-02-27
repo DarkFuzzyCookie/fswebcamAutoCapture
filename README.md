@@ -29,7 +29,7 @@ examples: 640x480 , 1280x720 , 1920x1080
  
 ## *********READ_ME*********
 - To create the 'autostart_fswebcam.sh' and 'fswebcam_auto_capture.ini' files, run the shell script.
-**To make the script executable and run on startup do the following:**
+- **To make the script executable and run on startup do the following:**
 * Edit `'autostart_fswebcam.sh'` and change the directory to the download directory of the `fswebcam_auto_capture.sh`.
 * Move `'autostart_fswebcam.sh'` script into `/etc/init.d/`
 * Make auto-run script executable: `sudo chmod 755 /etc/init.d/autostart_fswebcam.sh`
