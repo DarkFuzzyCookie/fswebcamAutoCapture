@@ -1,9 +1,3 @@
-capture_delay=3h
-capture_on_startup=false
-capture_directory=./capture/
-capture_name_format=image_&i
-capture_resolution=1280x720
- 
 ## *********capture_delay*********
 coresponds to the delay in time between image captures
 can be any numeric number followed by:
