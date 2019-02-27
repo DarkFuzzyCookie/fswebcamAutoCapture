@@ -40,7 +40,8 @@ function evaluateNameFormat(){
 function makeStartupFile(){
 	echo "#! /bin/sh" > autostart_fswebcam.sh
 	echo " " >> autostart_fswebcam.sh
-	echo "sh /location/of/script/fswebcam_auto_capture.sh" >> autostart_fswebcam.sh
+	echo "# remove bottom hastag to run silently" >> autostart_fswebcam.sh
+	echo "sh /location/of/script/fswebcam_auto_capture.sh #&" >> autostart_fswebcam.sh
 }
 
 function makeConfigurationFile(){
