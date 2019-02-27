@@ -6,6 +6,7 @@ config_capture_delay=''
 config_capture_on_startup=false
 config_capture_directory=''
 config_capture_name_format=''
+config_capture_resolution=''
 
 flag_good_config=1
 
@@ -47,6 +48,7 @@ function makeConfigurationFile(){
 	echo "capture_on_startup=false" >> fswebcam_auto_capture.ini 
 	echo "capture_directory=./capture/" >> fswebcam_auto_capture.ini
 	echo "capture_name_format=image_&i" >> fswebcam_auto_capture.ini
+	echo "capture_resolution=1280x720" >> fswebcam_auto_capture.ini
 
 	echo " " >> fswebcam_auto_capture.ini
 	echo "*********capture_delay*********" >> fswebcam_auto_capture.ini
@@ -64,18 +66,24 @@ function makeConfigurationFile(){
 	echo "directory where the capture images will be saved to" >> fswebcam_auto_capture.ini
 	echo "default directory is cwd/capture/, if directory doesn't exist it will be created" >> fswebcam_auto_capture.ini
 	echo "can be a valid directory path ending in '/'" >> fswebcam_auto_capture.ini
-	echo "examples: ./capture/ , c:/Users/FishBoi/Akon/SexCam/ , ~/Documents/ImageCapture/" >> fswebcam_auto_capture.ini
+	echo "examples: ./capture/ , c:/Users/FishBoi/Akon/TommiesRide/ , ~/Documents/ImageCapture/" >> fswebcam_auto_capture.ini
 	echo " " >> fswebcam_auto_capture.ini
 	echo "*********capture_name_format*********" >> fswebcam_auto_capture.ini
 	echo "name of the images that will be saved by the capture" >> fswebcam_auto_capture.ini
 	echo "can put a single iteration of either '&i', '&t', or '&dt' to create unique names per image capture" >> fswebcam_auto_capture.ini
 	echo "'&i' for images taken, '&t' for time as H:M:S and '&dt' for datetime as Y-M-D H:M:S " >> fswebcam_auto_capture.ini
 	echo "if no unique identifier exists then the image will be overriden every capture" >> fswebcam_auto_capture.ini
-	echo "examples:\n image_&dt , coolimagename , image_number_&i, taken_at_&t, &dt" >> fswebcam_auto_capture.ini
+	echo "examples: image_&dt , coolimagename , image_number_&i, taken_at_&t, &dt" >> fswebcam_auto_capture.ini
+	echo " " >> fswebcam_auto_capture.ini
+	echo "*********capture_resolution*********" >> fswebcam_auto_capture.ini
+	echo "resolution of the images that will be saved by the capture" >> fswebcam_auto_capture.ini
+	echo "must be valid screen resoultion sizes in the form LengthxWidth" >> fswebcam_auto_capture.ini
+	echo "examples: 640x480 , 1280x720 , 1920x1080" >> fswebcam_auto_capture.ini
 	echo " " >> fswebcam_auto_capture.ini
 	echo "*********READ_ME*********" >> fswebcam_auto_capture.ini
+	echo "To create the 'autostart_fswebcam.sh' and 'fswebcam_auto_capture.ini' files, run the shell script." >> fswebcam_auto_capture.ini
 	echo "To make the script executable and run on startup do the following:" >> fswebcam_auto_capture.ini
-	echo "Edit 'autostart_fswebcam.sh' and change the directory to the download directory of the script" >> fswebcam_auto_capture.ini
+	echo "Edit 'autostart_fswebcam.sh' and change the directory to the download directory of the fswebcam_auto_capture.sh" >> fswebcam_auto_capture.ini
 	echo "Move 'autostart_fswebcam.sh' script into /etc/init.d/" >> fswebcam_auto_capture.ini
 	echo "Make auto-run script executable: sudo chmod 755 /etc/init.d/autostart_fswebcam.sh" >> fswebcam_auto_capture.ini
 	echo "Make capture script executable: sudo chmod 755 /location/of/script/fswebcam_auto_capture.sh" >> fswebcam_auto_capture.ini
@@ -108,7 +116,10 @@ function readConfigurationFile(){
 		elif [ $x -eq 4 ] ; then
 			pattern="capture_name_format="
 			config_capture_name_format=${p/$pattern/}
-
+		elif [ $x -eq 5 ] ; then
+			pattern="capture_resolution="
+			config_capture_resolution=${p/$pattern/}
+			# So we don't process the readme file
 			break
 		fi
 
@@ -135,7 +146,7 @@ function captureWebcamImage(){
 	fi
 		
 	file_name="$config_capture_directory$file_name"
-	fswebcam "$file_name"
+	fswebcam -r "$config_capture_resolution" "$file_name"
 	echo "$file_name"
 }
 
